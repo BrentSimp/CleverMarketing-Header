@@ -10,7 +10,6 @@ class App{
     const container = document.createElement( 'div' );
 		document.body.appendChild( container );
 
-
     //Animation mixer and render clock    
     this.clock = new THREE.Clock();
     this.mixer = new THREE.AnimationMixer();
@@ -21,7 +20,8 @@ class App{
 		this.camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 1000 );
 		this.camera.position.set( 0, 1.6, 3 );
     this.camera.lookAt( 0, 0, 0 );
-        
+    
+    //Scene and lighting setup
 		this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color( 0x16164A );
 
@@ -38,7 +38,6 @@ class App{
 
     container.appendChild( this.renderer.domElement );
 
-    
     this.count = 50;
     this.colCount = 30;
     this.bucketArr = [];
@@ -47,9 +46,7 @@ class App{
     this.bucketCols = [];
     this.bucketOpacity = 0.18;
 
-
     this.addObjects();
-    
     this.loadModels();
     this.render();
 
@@ -66,7 +63,7 @@ class App{
   }
 
   addObjects() {
-    // instantiate a loader
+    // Instantiate a loader
     this.dot01_text = new THREE.TextureLoader().load( "./assets/textures/dot01.png" );
     this.dot02_text = new THREE.TextureLoader().load(  "./assets/textures/dot02.png" );
     this.dot03_text = new THREE.TextureLoader().load(  "./assets/textures/dot03.png" );
@@ -103,16 +100,9 @@ class App{
       }
     }
     
-   
-    var tl = gsap.timeline();
     this.fadeAmount = 1;
 
     this.blockAnimation();
-  
-    function generate(min, max, multiple) {
-      var res = Math.floor(Math.random() * ((max - min) / multiple)) * multiple + min;
-      return res;
-  }
 
     function random(numbers) {
       return numbers[Math.floor(Math.random()*numbers.length)];
@@ -188,7 +178,7 @@ class App{
     }
   }
     
-  Random(numbers) {
+  random(numbers) {
     return numbers[Math.floor(Math.random()*numbers.length)];
   }
 
@@ -220,12 +210,10 @@ class App{
           action.setLoop(THREE.LoopOnce);
           action.clampWhenFinished = true;
           action.enable = true;
-
         });
 
         //Blender camera
         parent.camera = gltf.cameras[0];
-
         parent.resize();
         parent.setupResize()
       },
